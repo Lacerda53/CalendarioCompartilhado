@@ -1,0 +1,52 @@
+﻿@model Calendario.Models.Evento
+<link href="~/lib/datetimepicker/css/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script src="~/lib/datetimepicker/js/jquery.datetimepicker.full.js"></script>
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Cadastrar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" placeholder="Ex: Reunião" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input asp-for="Descricao" placeholder="Ex: Reunião para ..." class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Inicio" class="control-label"></label>
+                <input asp-for="Inicio" class="form-control" id="datetimepicker" />
+                <span asp-validation-for="Inicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fim" class="control-label"></label>
+                <input asp-for="Fim" class="form-control" id="datetimepicker" />
+                <span asp-validation-for="Fim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cor" class="control-label"></label>
+                <select asp-for="Cor" class="form-control">
+                    <option value="#28a745" class="bg bg-success">Verde</option>
+                    <option value="#ffc107" class="bg bg-warning">Amarelo</option>
+                    <option value="#ffc107" class="bg bg-primary">Azul</option>
+                    <option value="#ffc107" class="bg bg-danger">Vermelho</option>
+                    <option value="#ffc107" class="bg bg-dark">Preto</option>
+                    <option value="#ffc107" class="bg bg-purple">Roxo</option>
+                </select>
+                <span asp-validation-for="Cor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" asp-for="DiaInteiro" class="custom-control-input" id="defaultUnchecked">
+                    <label class="custom-control-label" for="defaultUnchecked">@Html.DisplayNameFor(model => model.DiaInteiro)</label>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Cadastrar" class="btn bg-purple" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </form>
+    </div>
+</div>

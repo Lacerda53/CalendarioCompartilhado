@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Meu Calendário";
+}
+<link href="~/lib/fullcalendar/core/main.css" rel="stylesheet" />
+<link href="~/lib/fullcalendar/list/main.css" rel="stylesheet" />
+<link href="~/lib/fullcalendar/bootstrap/main.css" rel="stylesheet" />
+<link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+
+<div class="row">
+    <!-- /.col -->
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-body p-0">
+                <!-- THE CALENDAR -->
+                <div id="calendar"></div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+@section Scripts{
+    <script src="~/lib/fullcalendar/core/main.js"></script>
+    <script src="~/lib/fullcalendar/daygrid/main.js"></script>
+    <script src="~/lib/fullcalendar/list/main.js"></script>
+    <script src="~/lib/fullcalendar/interaction/main.js"></script>
+    <script src="~/lib/fullcalendar/bootstrap/main.js"></script>
+    <script src="~/lib/fullcalendar/core/locales-all.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+
+
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+            //Date for the calendar events (dummy data)
+
+            var Calendar = FullCalendar.Calendar;
+            var calendarEl = document.getElementById('calendar');
+
+
+            var calendar = new Calendar(calendarEl, {
+                defaultDate: new Date(),
+                plugins: ['bootstrap', 'interaction', 'dayGrid', 'list'],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listWeek'
+                },
+                locale: 'pt-br',
+                editable: true,
+                events: '@Url.Action("GetEvents", "Home")'
+            });
+
+            calendar.render();
+
+        })
+    </script>
+}
