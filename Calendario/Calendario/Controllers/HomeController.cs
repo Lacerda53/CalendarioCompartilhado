@@ -1,11 +1,13 @@
 ﻿using Calendario.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Calendario.Controllers
-{
+{   
+    [Authorize]
     public class HomeController : BaseController
     {
         List<Evento> eventos = new List<Evento>()
