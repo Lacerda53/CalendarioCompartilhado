@@ -1,27 +1,22 @@
-﻿using Calendario.Models;
+﻿using Calendario._Repositorio.Core;
+using Calendario.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Calendario.Controllers
-{   
+{
     [Authorize]
     public class HomeController : BaseController
     {
-        List<Evento> eventos = new List<Evento>()
+        private readonly IEventoRepositorio _EventoRep;
+        public HomeController(IEventoRepositorio EventoRep)
         {
-            new Evento
-            {
-                Nome = "Hackday",
-                Descricao = "Evento de hacking",
-                Inicio = DateTime.Now,
-                Fim = new DateTime(2020, 2, 3),
-                DiaInteiro = false,
-                Cor = "#ec3b83"
-            }
-        };
+            _EventoRep = EventoRep;
+        }
         public IActionResult Index()
         {
             if (HttpExtensions.IsAjaxRequest(Request))
@@ -29,38 +24,21 @@ namespace Calendario.Controllers
             else
                 return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Cadastrar(Evento item)
+        public JsonResult ListaTodosEventosJson()
         {
-            if(ModelState.IsValid)
-            {
-                if (HttpExtensions.IsAjaxRequest(Request))
-                    return PartialView();
-                else
-                    return View();
-            }
-            else
-            {
-                return View();
-            }
-        }
-
-        public JsonResult GetEvents()
-        {
-            var events = eventos.Select(e => new
+            var eventos = _EventoRep.ListarTodosEventos().ToList().Select(e => new
             {
                 id = e.Id,
                 title = e.Nome,
                 description = e.Descricao,
-                start = e.Inicio.ToString("yyyy-MM-dd"),
-                end = e.Fim.ToString("yyyy-MM-dd"),
+                start = e.Inicio.ToString("yyyy-MM-ddThh:mm:ss"),
+                end = e.Fim.ToString("yyyy-MM-ddThh:mm:ss"),
                 allDay = e.DiaInteiro,
-                color= e.Cor,
+                color = e.Cor,
                 textColor = "#fff"
             }).ToList();
-                return new JsonResult(events);
-            
+            return new JsonResult(eventos);
+
         }
     }
 }

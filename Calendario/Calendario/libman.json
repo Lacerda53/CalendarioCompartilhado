@@ -67,6 +67,16 @@
       "files": [
         "dist/jquery.unobtrusive-ajax.js"
       ]
+    },
+    {
+      "library": "datatable@2.0.1",
+      "destination": "wwwroot/lib/datatable/",
+      "files": [
+        "js/datatable.min.js",
+        "js/datatable.js",
+        "css/datatable.css",
+        "css/datatable-bootstrap.css"
+      ]
     }
   ]
 }

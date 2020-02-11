@@ -17,12 +17,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Inicio" class="control-label"></label>
-                <input asp-for="Inicio" class="form-control" id="datetimepicker" />
+                <input asp-for="Inicio" class="form-control datetimepicker" />
                 <span asp-validation-for="Inicio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Fim" class="control-label"></label>
-                <input asp-for="Fim" class="form-control" id="datetimepicker" />
+                <input asp-for="Fim" class="form-control datetimepicker" />
                 <span asp-validation-for="Fim" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,10 +30,13 @@
                 <select asp-for="Cor" class="form-control">
                     <option value="#28a745" class="bg bg-success">Verde</option>
                     <option value="#ffc107" class="bg bg-warning">Amarelo</option>
-                    <option value="#ffc107" class="bg bg-primary">Azul</option>
-                    <option value="#ffc107" class="bg bg-danger">Vermelho</option>
-                    <option value="#ffc107" class="bg bg-dark">Preto</option>
-                    <option value="#ffc107" class="bg bg-purple">Roxo</option>
+                    <option value="#ff851b" class="bg bg-orange">Laranja</option>
+                    <option value="#007bff" class="bg bg-primary">Azul</option>
+                    <option value="#dc3545" class="bg bg-danger">Vermelho</option>
+                    <option value="#343a40" class="bg bg-dark">Preto</option>
+                    <option value="#b10dc9" class="bg bg-purple">Roxo</option>
+                    <option value="#001f3f" class="bg bg-navy">Navy</option>
+                    <option value="#01ff70" class="bg bg-lime">Limão</option>
                 </select>
                 <span asp-validation-for="Cor" class="text-danger"></span>
             </div>

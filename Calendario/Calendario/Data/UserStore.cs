@@ -10,21 +10,34 @@ using System.Threading.Tasks;
 
 namespace Calendario.Data
 {
-    public class UserStore : 
-        IUserStore<ApplicationUser>, 
-        IUserEmailStore<ApplicationUser>, 
+    public class UserStore :
+        IUserStore<ApplicationUser>,
+        IUserEmailStore<ApplicationUser>,
         IUserPhoneNumberStore<ApplicationUser>,
         IUserTwoFactorStore<ApplicationUser>,
         IUserPasswordStore<ApplicationUser>,
-        IUserRoleStore<ApplicationUser>
+        IUserRoleStore<ApplicationUser>,
+        IQueryableUserStore<ApplicationUser>
     {
         private readonly string _connectionString;
+
+        public  IQueryable<ApplicationUser> Users
+        {
+            get
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    var query = "SELECT * FROM ApplicationUser";
+                    var result = connection.Query<ApplicationUser>(query);
+                    return result.AsQueryable();
+                }
+            }
+        }
 
         public UserStore(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-
         public async Task<IdentityResult> CreateAsync(ApplicationUser user, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();

@@ -8,6 +8,7 @@ namespace Calendario.Models
         public Evento()
         {
             Id = Guid.NewGuid();
+            Habilitado = true;
         }
         public Guid Id { get; set; }
 
@@ -36,5 +37,7 @@ namespace Calendario.Models
         public bool DiaInteiro { get; set; }
 
         public int UsuarioId { get; set; }
+
+        public bool Habilitado { get; set; }
     }
 }

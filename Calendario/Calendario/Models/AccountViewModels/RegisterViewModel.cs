@@ -9,9 +9,6 @@ namespace Calendario.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
-        public string Nome { get; set; }
-
-        [Required]
         [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }

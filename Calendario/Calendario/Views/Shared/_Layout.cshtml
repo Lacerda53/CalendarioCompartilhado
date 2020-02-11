@@ -35,10 +35,11 @@
                 </div>
             </form>
             @User.Identity.Name
+            <a class="btn btn-danger" asp-controller="Account" asp-action="Logout">Sair</a>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a asp-controller="Home" asp-action="Index" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#conteudo" class="brand-link navbar-purple">
-                <i style="color:white;margin-left: 21px;font-size: x-large" class="nav-icon fa fa-share-alt-square"></i>
+                <i style="color:white;margin-left: 21px;font-size: 20px" class="nav-icon fa fa-share-alt-square"></i>
                 <span style="color:white" class="brand-text font-weight-bold"> CALENDÁRIO</span>
             </a>
             <div class="sidebar">
@@ -60,6 +61,17 @@
                                 </p>
                             </a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item has-treeview ">
+                                <a asp-controller="Usuario" asp-action="Index" class="nav-link">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        Usuários
+                                    </p>
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </nav>
             </div>

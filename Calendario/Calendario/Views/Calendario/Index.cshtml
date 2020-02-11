@@ -2,6 +2,7 @@
     ViewData["Title"] = "Meu Calendário";
 }
 <link href="~/lib/fullcalendar/core/main.css" rel="stylesheet" />
+<link href="~/lib/fullcalendar/daygrid/main.css" rel="stylesheet" />
 <link href="~/lib/fullcalendar/list/main.css" rel="stylesheet" />
 <link href="~/lib/fullcalendar/bootstrap/main.css" rel="stylesheet" />
 <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
@@ -19,6 +20,23 @@
         <!-- /.card -->
     </div>
     <!-- /.col -->
+
+    <div id="myModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @await Component.InvokeAsync("AddEvento")
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <!-- /.row -->
 @section Scripts{
@@ -27,9 +45,15 @@
     <script src="~/lib/fullcalendar/list/main.js"></script>
     <script src="~/lib/fullcalendar/interaction/main.js"></script>
     <script src="~/lib/fullcalendar/bootstrap/main.js"></script>
-    <script src="~/lib/fullcalendar/core/locales-all.js"></script>
+    <script src="~/lib/fullcalendar/core/locales/pt-br.js"></script>
     <script src="~/lib/jqueryui/jquery-ui.js"></script>
-
+    <script>
+        $('.datetimepicker').datetimepicker({
+            format: 'd/m/Y h:i',
+            language: 'pt-BR',
+            toggleActive: true
+        });
+    </script>
     <script>
         $(function () {
 
@@ -51,8 +75,15 @@
                     right: 'dayGridMonth,listWeek'
                 },
                 locale: 'pt-br',
+                navLinks: true,
+                selectable: true,
                 editable: true,
-                events: '@Url.Action("GetEvents", "Home")'
+                dateClick: function abreModal() {
+                $("#myModal").modal({
+                     show: true
+                });
+                },
+                events: '@Url.Action("ListaMeusEventosJson", "Calendario", new { id = ViewBag.UserId})'
             });
 
             calendar.render();

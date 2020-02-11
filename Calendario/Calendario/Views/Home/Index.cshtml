@@ -78,12 +78,7 @@
                 navLinks: true,
                 selectable: true,
                 editable: true,
-                dateClick: function abreModal() {
-                $("#myModal").modal({
-                     show: true
-                });
-                },
-                events: '@Url.Action("GetEvents", "Home")'
+                events: '@Url.Action("ListaTodosEventosJson", "Home")'
             });
 
             calendar.render();

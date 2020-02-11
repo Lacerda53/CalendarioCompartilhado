@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Calendario.Controllers
@@ -8,6 +9,8 @@ namespace Calendario.Controllers
     }
     public static class HttpExtensions
     {
+        public static ClaimsPrincipal User { get; internal set; }
+
         public static bool IsAjaxRequest(this HttpRequest request)
         {
             if (request == null)
