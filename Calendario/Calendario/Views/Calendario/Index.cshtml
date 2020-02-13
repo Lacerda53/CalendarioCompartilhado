@@ -75,15 +75,22 @@
                     right: 'dayGridMonth,listWeek'
                 },
                 locale: 'pt-br',
+                events: '@Url.Action("ListaMeusEventosJson", "Calendario", new { id = ViewBag.UserId})',
                 navLinks: true,
                 selectable: true,
                 editable: true,
+                businessHours: true,
+                displayEventEnd: true,
+                progressiveEventRendering: true,
+                eventTimeFormat: { 
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: false},
                 dateClick: function abreModal() {
                 $("#myModal").modal({
                      show: true
                 });
-                },
-                events: '@Url.Action("ListaMeusEventosJson", "Calendario", new { id = ViewBag.UserId})'
+                }
             });
 
             calendar.render();
