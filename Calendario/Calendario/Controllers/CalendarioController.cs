@@ -35,10 +35,7 @@ namespace Calendario.Controllers
             if (ModelState.IsValid)
             {
                 _EventoRep.Adicionar(item);
-                if (HttpExtensions.IsAjaxRequest(Request))
-                    return PartialView(nameof(CalendarioController.Index));
-                else
-                    return View(nameof(CalendarioController.Index));
+                return View(nameof(CalendarioController.Index));
             }
             else
             {

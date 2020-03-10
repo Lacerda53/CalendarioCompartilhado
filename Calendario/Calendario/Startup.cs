@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Calendario._Infra;
+using Calendario._Repositorio;
+using Calendario._Repositorio.Core;
 using Calendario.Data;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Calendario.Models;
 using Calendario.Services;
-using Calendario._Repositorio.Core;
-using Calendario._Repositorio;
-using Calendario._Infra;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.SignalR;
+using Calendario.Hubs;
 
 namespace Calendario
 {
@@ -50,6 +46,7 @@ namespace Calendario
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddMvc().AddSessionStateTempDataProvider().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +68,11 @@ namespace Calendario
             app.UseCookiePolicy();
             app.UseSession();
             app.UseAuthentication();
-            
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotificationHub>("/notifications");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
